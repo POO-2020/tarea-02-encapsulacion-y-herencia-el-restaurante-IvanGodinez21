@@ -6,6 +6,7 @@ import ElementoPedido from "./elementopedido.js";
 import Pedido from "./pedido.js";
 import Precio from "./precio.js";
 import Cliente from "./cliente.js";
+import ClienteFrecuente from "./clientefrecuente.js";
 import Restaurante from "./restaurante.js";
 
 class Main {
@@ -61,7 +62,7 @@ class Main {
         let elementopedido = new ElementoPedido(cantidad, costo1, producto);
         console.log(`${elementopedido.getDescripcionpedido()}`);
     }
-    probarPedido(){
+    probarPedido() {
         console.log(`<---------Pedido--------->`);
         let cantidad1 = 1
         let cantidad2 = 3
@@ -82,7 +83,7 @@ class Main {
         console.log(pedido.getResumen());
         console.log("Costo total: " + pedido.getCostoTotal());
     }
-    probarRestaurante(){
+    probarRestaurante() {
         let cantidad1 = 2
         let cantidad2 = 4
         let precio1 = new Precio(200)
@@ -112,6 +113,26 @@ class Main {
         console.log(`-----Productos-----`)
         restaurante.listarPedidos()
     }
+    probarCliente() {
+        console.log('<---------Cliente--------->')
+        let cliente = new Cliente({
+            nombre: "Jesus Ivan Godinez Martinez",
+            direccion: new Direccion("Calle", "Selvas", 1120, "" , "Milenio"),
+            telefono: 3308648
+        })
+        console.log(cliente.getPerfil())
+    }
+    probarClienteFrecuente() {
+        console.log('<---------Cliente Frecuente--------->')
+        let cliente = new ClienteFrecuente({
+            nombre: "Cristian Alejandro Godinez Martinez",
+            direccion: new Direccion("Calle", "Selvas", 1121, "" , "Milenio"),
+            telefono: 3318648,
+            numero: 1,
+            fecha: new Fecha(21, 9, 2015)
+        })
+        console.log(cliente.getPerfil())
+    }
 }
 
 let app = new Main
@@ -119,6 +140,8 @@ app.probarFecha();
 app.probarTiempo();
 app.probarDireccion();
 app.probarPrecio();
+app.probarCliente();
+app.probarClienteFrecuente();
 app.probarProducto();
 app.probarElementoPedido();
 app.probarPedido();

@@ -14,6 +14,6 @@ export default class ClienteFrecuente extends Cliente {
         this._fecha = fecha
     }
     getPerfil() {
-        return `Nombre: ${this._nombre}\nDirección: ${this._direccion}`
+        return `Nombre: ${this._nombre}\nDirección: ${this._direccion.getFormatoExtendido()}\nTelefono: ${this._telefono}\nNumero de Cliente: ${this._numero}\nFecha de Registro: ${this._fecha.getFecha()}`
     }
 }
