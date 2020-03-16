@@ -6,12 +6,12 @@ export default class Producto {
      * @param {number} costo 
      */
     constructor(producto, tipo, tamaño, costo) {
-        this.producto = producto
-        this.tipo = tipo
-        this.tamaño = tamaño
-        this.costo = costo
+        this._producto = producto
+        this._tipo = tipo
+        this._tamaño = tamaño
+        this._costo = costo
     }
     getDescripcion() {
-        return `${this.producto} ${this.tipo} ${this.tamaño} ${this.costo.getPrecio()}`
+        return `${this._producto} ${this._tipo} ${this._tamaño} ${this._costo.getPrecio()}`
     }
 }

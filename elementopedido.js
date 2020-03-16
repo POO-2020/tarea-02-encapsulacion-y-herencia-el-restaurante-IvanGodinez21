@@ -5,11 +5,11 @@ export default class ElementoPedido {
      * @param {string} producto 
      */
     constructor(cantidad, precio, producto) {
-        this.cantidad = cantidad
-        this.precio = precio
-        this.producto = producto
+        this._cantidad = cantidad
+        this._precio = precio
+        this._producto = producto
     }
     getDescripcionpedido() {
-        return `x${this.cantidad} ${this.producto.getDescripcion()}`
+        return `x${this._cantidad} ${this._producto.getDescripcion()}`
     }
 }
