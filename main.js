@@ -9,6 +9,20 @@ import Cliente from "./cliente.js";
 import ClienteFrecuente from "./clientefrecuente.js";
 import Restaurante from "./restaurante.js";
 
+//CLIENTES
+const clienteA = new Cliente({
+    nombre: "Jesus Ivan Godinez Martinez",
+    direccion: new Direccion("Calle", "Selvas", 1120, "" , "Milenio"),
+    telefono: 3308648
+})
+const clienteB = new ClienteFrecuente({
+    nombre: "Cristian Alejandro Godinez Martinez",
+    direccion: new Direccion("Calle", "Selvas", 1121, "" , "Milenio"),
+    telefono: 3318648,
+    numero: 1,
+    fecha: new Fecha(21, 9, 2015)
+})
+
 class Main {
     probarFecha() {
         console.log(`<---------Fecha--------->`);
@@ -59,7 +73,11 @@ class Main {
         let cantidad = 64;
         let costo1 = new Precio(200*cantidad);
         let producto = new Producto("Pizza", "Mexicana", "Grande", costo1);
-        let elementopedido = new ElementoPedido(cantidad, costo1, producto);
+        let elementopedido = new ElementoPedido({
+            cantidad: cantidad,
+            precio: costo1,
+            producto: producto
+        });
         console.log(`${elementopedido.getDescripcionpedido()}`);
     }
     probarPedido() {
@@ -68,13 +86,21 @@ class Main {
         let cantidad2 = 3
         let precio1 = new Precio(200)
         let precio2 = new Precio(100)
-        let elemento1 = new ElementoPedido(cantidad1, precio1, new Producto("Pizza", "Mexicana", "Grande", precio1));
-        let elemento2 = new ElementoPedido(cantidad2, precio2, new Producto("Pizza", "Pepperoni", "Grande", precio2));
-        let pedido = new Pedido(
-        new Fecha(1, 13, 2020),
-        new Tiempo(2, 22, "pm"),
-        new Cliente("Raul Castro Torres", new Direccion ("Avenida", "Siempre Viva", 123, 2, "Buena vista"), 3124456446)
-        );
+        let elemento1 = new ElementoPedido({
+            cantidad: cantidad1,
+            precio: precio1,
+            producto: new Producto("Pizza", "Mexicana", "Grande", precio1)
+        });
+        let elemento2 = new ElementoPedido({
+            cantidad: cantidad2, 
+            precio: precio2,
+            producto: new Producto("Pizza", "Pepperoni", "Grande", precio2)
+        });
+        let pedido = new Pedido({
+        fecha: new Fecha(1, 13, 2020),
+        hora: new Tiempo(2, 22, "pm"),
+        cliente: clienteA
+        });
         pedido.agregarElemento(elemento1);
         pedido.agregarElemento(elemento2);
         console.log("Cantidad de productos distintos: " + pedido.getNumeroElementos());
@@ -88,29 +114,42 @@ class Main {
         let cantidad2 = 4
         let precio1 = new Precio(200)
         let precio2 = new Precio(100)
-        let producto1 = new ElementoPedido(cantidad1, precio1, new Producto("Pizza", "Mexicana", "Grande", precio1));
-        let producto2 = new ElementoPedido(cantidad2, precio2, new Producto("Pizza", "Pepperoni", "Grande", precio2));
-        let pedido1 = new Pedido(
-        new Fecha(1, 13, 2020),
-        new Tiempo(2, 22, "pm"),
-        new Cliente("Raul Castro Torres", new Direccion ("Avenida", "Siempre Viva", 123, 2, "Buena vista"), 3124456446)
-        );
-        let pedido2 = new Pedido(
-            new Fecha(1, 13, 2020),
-            new Tiempo(2, 22, "pm"),
-            new Cliente("Jesus Castro Martinez", new Direccion ("Avenida", "Siempre Viva", 129, 2, "Buena vista"), 3125156446)
-            );
+        let elemento1 = new ElementoPedido({
+            cantidad: cantidad1,
+            precio: precio1,
+            producto: new Producto("Pizza", "Mexicana", "Grande", precio1)
+        });
+        let elemento2 = new ElementoPedido({
+            cantidad: cantidad2, 
+            precio: precio2,
+            producto: new Producto("Pizza", "Pepperoni", "Grande", precio2)
+        });
+        let pedido1 = new Pedido({
+            fecha: new Fecha(1, 13, 2020),
+            hora: new Tiempo(2, 44, "pm"),
+            cliente: clienteA
+        });
+        let pedido2 = new Pedido({
+            fecha: new Fecha(1, 13, 2020),
+            hora: new Tiempo(2, 12, "pm"),
+            cliente: clienteB
+        });
         let restaurante = new Restaurante("Papa's Pizzeria", 312454467, new Direccion ("Avenida", "Siempre Viva", 654, 1, "Buena vista"), 3124456446)
         console.log('<---------Restaurante--------->')
-        restaurante.registrarProducto(producto1)
-        restaurante.registrarProducto(producto2)
-        pedido1.agregarElemento(producto1)
-        pedido2.agregarElemento(producto2)
+        restaurante.registrarProducto(elemento1)
+        restaurante.registrarProducto(elemento2)
+        pedido1.agregarElemento(elemento1)
+        pedido2.agregarElemento(elemento2)
         restaurante.registrarPedido(pedido1)
-        restaurante.registrarPedido(pedido2)
-        console.log(`-----Pedidos-----`)
-        restaurante.listarProductos()
+        restaurante.eliminarPedido(pedido1)
+        restaurante.modificarPedido(pedido2, pedido1)
         console.log(`-----Productos-----`)
+        restaurante.listarProductos()
+        console.log(`-----Pedidos-----`)
+        console.log(restaurante.registrarPedido(pedido1))
+        console.log(restaurante.buscarPedido(pedido1))
+        console.log(restaurante.eliminarPedido(pedido1))
+        console.log(restaurante.modificarPedido(pedido2, pedido1))
         restaurante.listarPedidos()
     }
     probarCliente() {
